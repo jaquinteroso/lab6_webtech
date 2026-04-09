@@ -5,7 +5,7 @@ class CreateOwners < ActiveRecord::Migration[8.1]
       t.string :last_name
       t.string :email
       t.string :phone
-      t.text :adress
+      t.text :address
 
       t.timestamps
     end
