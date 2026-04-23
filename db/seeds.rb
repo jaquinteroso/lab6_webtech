@@ -1,13 +1,3 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
 require 'faker'
 
 puts "Cleaning database..."
@@ -41,7 +31,7 @@ owners = []
   owners << owner
 end
 
-species_options = ["Dog", "Cat", "Rabbit", "Hamster"]
+species_options = ["dog", "cat", "rabbit", "bird", "reptile", "other"]
 5.times do
   Pet.create!(
     owner: owners.sample,
@@ -60,13 +50,13 @@ puts "Creating appointments..."
     vet: Vet.all.sample,
     date: Faker::Time.between(from: DateTime.now - 1.month, to: DateTime.now + 1.month),
     reason: ["Annual Checkup", "Vaccination", "Injury", "General Consultation"].sample,
-    status: [0, 1, 2].sample # 0: scheduled, 1: in progress, 2: completed, 3: cancelled
+    status: [:scheduled, :in_progress, :completed, :cancelled].sample
   )
 end
 
 puts "Creating treatments..."
 # Buscamos citas que no estén canceladas (status != 3)
-valid_appointments = Appointment.where.not(status: 3).limit(5)
+valid_appointments = Appointment.where.not(status: :cancelled).limit(5)
 
 valid_appointments.each do |appointment|
   appointment.treatments.create!(
