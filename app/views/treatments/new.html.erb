@@ -1,0 +1,3 @@
+<h1 class="mb-4">New Treatment for Appointment #<%= @appointment.id %></h1>
+<%= render "form", treatment: @treatment %>
+<%= link_to "Back to Appointment", appointment_path(@appointment), class: "btn btn-secondary mt-3" %>
