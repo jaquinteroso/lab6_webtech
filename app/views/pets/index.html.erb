@@ -1,4 +1,8 @@
-<h1 class="mb-4">Pets</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Pets</h1>
+  <%= link_to "New Pet", new_pet_path, class: "btn btn-primary" %> <!-- -->
+</div>
+
 <table class="table table-hover">
   <thead class="table-dark">
     <tr>
@@ -7,7 +11,7 @@
       <th>Breed</th>
       <th>Owner</th>
       <th>DOB</th>
-      <th>Actions</th>
+      <th class="text-center">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +20,17 @@
         <td><%= pet.name %></td>
         <td><%= pet.species %></td>
         <td><%= pet.breed %></td>
-        <td><%= pet.owner.first_name %> <%= pet.owner.last_name %></td> <td><%= pet.date_of_birth.strftime("%B %d, %Y") %></td> <td><%= link_to "Show", pet_path(pet), class: "btn btn-sm btn-info" %></td>
+        <td><%= pet.owner.first_name %> <%= pet.owner.last_name %></td>
+        <td><%= pet.date_of_birth.strftime("%B %d, %Y") %></td>
+        <td class="text-center">
+          <div class="d-flex justify-content-center gap-1">
+            <%= link_to "Show", pet_path(pet), class: "btn btn-sm btn-outline-primary" %> <!-- -->
+            <%= link_to "Edit", edit_pet_path(pet), class: "btn btn-sm btn-info" %> <!-- -->
+            <%= button_to "Delete", pet_path(pet), method: :delete, 
+                data: { turbo_confirm: "Are you sure?" }, 
+                class: "btn btn-sm btn-danger", form_class: "d-inline" %> <!-- -->
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
